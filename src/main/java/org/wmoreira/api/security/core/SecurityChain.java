@@ -7,11 +7,16 @@ import javax.ws.rs.NotAuthorizedException;
  * @author wellington.362@gmail.com
  */
 
-public final class SecurityChain {
+public final class SecurityChain implements BeforeAuthorizationSecurityChain, AfterAuthorizationSecurityChain {
     private final SecurityHelper securityHelper;
     private boolean allowed = false;
 
-    private static SecurityChain of(SecurityHelper securityHelper) {
+    public static BeforeAuthorizationSecurityChain of(SecurityHelper securityHelper) {
+        if (securityHelper == null) {
+            /* "Nice try buddy, but a null SecurityHelper SHALL NOT PASS!"*/
+            throw new IllegalArgumentException("securityHelper must not be null");
+        }
+
         return new SecurityChain(securityHelper);
     }
 
@@ -19,34 +24,38 @@ public final class SecurityChain {
         this.securityHelper = securityHelper;
     }
 
-    SecurityChain checkDenyAll() throws NotAuthorizedException {
+    @Override
+    public BeforeAuthorizationSecurityChain checkDenyAll() throws NotAuthorizedException {
         securityHelper.checkDenyAll();
         return this;
     }
 
-    SecurityChain checkPermitAll() {
+    @Override
+    public BeforeAuthorizationSecurityChain checkPermitAll() {
         allowed = securityHelper.isPermitAll();
         return this;
     }
 
-    SecurityChain authorize() throws NotAuthorizedException {
+    @Override
+    public AfterAuthorizationSecurityChain authorize() throws NotAuthorizedException {
         if (!allowed) {
             securityHelper.authorize();
         }
         return this;
     }
 
-    SecurityChain checkAdmin() {
+    @Override
+    public AfterAuthorizationSecurityChain checkAdmin() {
         if (!allowed) {
             allowed = securityHelper.isAdmin();
         }
         return this;
     }
 
-    boolean checkRoles() throws ForbiddenException {
+    @Override
+    public void checkRoles() throws ForbiddenException {
         if (!allowed) {
             securityHelper.checkRoles();
         }
-        return true;
     }
 }
