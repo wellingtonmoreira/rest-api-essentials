@@ -58,4 +58,8 @@ public final class SecurityChain implements BeforeAuthorizationSecurityChain, Af
             securityHelper.checkRoles();
         }
     }
+
+    boolean isAllowed() {
+        return allowed;
+    }
 }
