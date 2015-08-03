@@ -1,7 +1,7 @@
-package org.wmoreira.api.security.core;
+package org.wmoreira.api.core.security;
 
-import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.NotAuthorizedException;
+import org.wmoreira.api.core.exception.UnauthorizedException;
+import org.wmoreira.api.core.exception.ForbiddenException;
 
 public interface SecurityHelper {
 
@@ -10,10 +10,10 @@ public interface SecurityHelper {
      * resource denies all incoming requests.
      *
      * example: @DenyAll annotated resource
-     * @throws NotAuthorizedException if resource denies all incoming requests
+     * @throws org.wmoreira.api.core.exception.UnauthorizedException if resource denies all incoming requests
      * @author wellington.362@gmail.com
      */
-    void checkDenyAll() throws NotAuthorizedException;
+    void checkDenyAll() throws UnauthorizedException;
 
     /**
      * Check if the requested
@@ -30,10 +30,10 @@ public interface SecurityHelper {
      *
      * example: Retrieve user state by providing its 'token' and
      * store it somewhere (please make it transient!).
-     * @throws NotAuthorizedException if user state cannot be found by the provided 'token'
+     * @throws UnauthorizedException if user state cannot be found by the provided 'token'
      * @author wellington.362@gmail.com
      */
-    void authorize() throws NotAuthorizedException;
+    void authorize() throws UnauthorizedException;
 
     /**
      * Check if authorized user is an administrator

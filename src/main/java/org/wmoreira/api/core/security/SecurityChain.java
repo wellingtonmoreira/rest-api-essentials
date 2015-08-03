@@ -1,7 +1,7 @@
-package org.wmoreira.api.security.core;
+package org.wmoreira.api.core.security;
 
-import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.NotAuthorizedException;
+import org.wmoreira.api.core.exception.UnauthorizedException;
+import org.wmoreira.api.core.exception.ForbiddenException;
 
 /**
  * @author wellington.362@gmail.com
@@ -25,7 +25,7 @@ public final class SecurityChain implements BeforeAuthorizationSecurityChain, Af
     }
 
     @Override
-    public BeforeAuthorizationSecurityChain checkDenyAll() throws NotAuthorizedException {
+    public BeforeAuthorizationSecurityChain checkDenyAll() throws UnauthorizedException {
         securityHelper.checkDenyAll();
         return this;
     }
@@ -37,7 +37,7 @@ public final class SecurityChain implements BeforeAuthorizationSecurityChain, Af
     }
 
     @Override
-    public AfterAuthorizationSecurityChain authorize() throws NotAuthorizedException {
+    public AfterAuthorizationSecurityChain authorize() throws UnauthorizedException {
         if (!allowed) {
             securityHelper.authorize();
         }
