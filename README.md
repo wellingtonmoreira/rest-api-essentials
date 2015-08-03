@@ -9,15 +9,25 @@ Basics for RESTFul APIs in a demystified way
   * 400 - BadRequestException
   * 401 - UnauthorizedException
   * 402 - PaymentRequiredException
+  * 403 - ForbiddenException
+  * 404 - NotFoundException
+  * 406 - NotAcceptableException
   * 407 - ProxyAuthenticationRequiredException
   * 408 - RequestTimeoutException
   * 409 - ConflictException
+  * 410 - GoneException
+  * 411 - LenghtRequiredException
   * 412 - PreconditionFailedException
   * 413 - RequestEntityTooLargeException
   * 415 - UnsupportedMediaTypeException
   * 416 - RequestedRangeNotSatisfiableException
   * 417 - ExpectationFailedException
   * 422 - UnprocessableEntityException
+  * 423 - LockedException
   * 424 - FailedDependencyException
+  * 500 - InternalServerErrorException
+  * 501 - NotImplementedException
   * 502 - BadGatewayException
   * 503 - ServiceUnavailableException
+  * 504 - GatewayTimeoutException
+  * 507 - InsufficientStorageException
