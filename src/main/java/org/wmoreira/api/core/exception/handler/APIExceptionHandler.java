@@ -3,6 +3,7 @@ package org.wmoreira.api.core.exception.handler;
 import org.apache.http.entity.ContentType;
 import org.wmoreira.api.core.exception.APIException;
 import org.wmoreira.api.core.exception.InternalServerErrorException;
+import org.wmoreira.api.core.parser.JsonParser;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public enum APIExceptionHandler {
     public void handleResponse(HttpServletResponse response, Exception exc) {
         Throwable cause = exc.getCause();
 
-        if (exc instanceof APIException || cause != null && cause instanceof APIException) {
+        if (exc instanceof APIException || (cause != null && cause instanceof APIException)) {
             handleException(response, (APIException) cause);
         } else {
             handleException(response, new InternalServerErrorException());
@@ -27,10 +28,9 @@ public enum APIExceptionHandler {
     void handleException(HttpServletResponse response, APIException aex) {
         try {
             response.setStatus(aex.getStatus());
-            if (aex.getMessage() != null) {
-                response.setContentType(ContentType.TEXT_PLAIN.getMimeType());
-                response.getOutputStream().write(aex.getMessage().getBytes());
-            }
+            response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
+            String error = JsonParser.INSTANCE.toJson(Error.of(aex.getStatus(), aex.getMessage()));
+            response.getOutputStream().write(error.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

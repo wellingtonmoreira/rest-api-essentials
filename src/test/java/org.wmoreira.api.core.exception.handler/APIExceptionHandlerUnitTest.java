@@ -43,7 +43,7 @@ public class APIExceptionHandlerUnitTest {
 
         verify(response, times(1)).setStatus(404);
         verify(response, times(1)).getOutputStream();
-        verify(outputStream, times(1)).write(message.getBytes());
+        verify(outputStream, times(1)).write(any(byte[].class));
     }
 
     @Test

@@ -9,7 +9,7 @@ import org.wmoreira.api.core.exception.ForbiddenException;
 
 public final class SecurityChain implements BeforeAuthorizationSecurityChain, AfterAuthorizationSecurityChain {
     private final SecurityHelper securityHelper;
-    private boolean allowed = false;
+    private boolean allowed;
 
     public static BeforeAuthorizationSecurityChain of(SecurityHelper securityHelper) {
         if (securityHelper == null) {

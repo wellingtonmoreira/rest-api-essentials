@@ -1,4 +1,4 @@
-#rest-api-essentials
+#rest-api-essentials BETA [0.0.1]
 
 Basics for RESTFul APIs in a demystified way
 
@@ -31,3 +31,29 @@ Basics for RESTFul APIs in a demystified way
   * 503 - ServiceUnavailableException
   * 504 - GatewayTimeoutException
   * 507 - InsufficientStorageException
+  
+##Usage
+###SecurityChain
+A SecurityChain requires an implementation of *SecurityHelper*
+
+	SecurityHelper helper = MySecurityHelper();
+	
+	SecurityChain.of(helper).checkDenyAll()		//Optional
+							.checkPermitAll()	//Optional
+							.authorize()
+							.checkAdmin()		//Optional
+							.checkRoles();
+							
+###ExceptionHandlingFilter
+Same as every *Filter* (Remember: This must be the first filter to be handled).
+Within your **web.xml**
+
+	<filter>
+		<filter-name>ExceptionHandlingFilter</filter-name>
+		<filter-class>org.wmoreira.api.core.exception.filter.ExceptionHandlingFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ExceptionHandlingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
