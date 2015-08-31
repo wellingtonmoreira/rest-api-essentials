@@ -16,7 +16,7 @@ Basics for RESTFul APIs in a demystified way
   * 408 - RequestTimeoutException
   * 409 - ConflictException
   * 410 - GoneException
-  * 411 - LenghtRequiredException
+  * 411 - LengthRequiredException
   * 412 - PreconditionFailedException
   * 413 - RequestEntityTooLargeException
   * 415 - UnsupportedMediaTypeException
