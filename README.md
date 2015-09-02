@@ -1,4 +1,4 @@
-#rest-api-essentials BETA [0.0.1]
+#rest-api-essentials BETA [0.0.2]
 
 Basics for RESTFul APIs in a demystified way
 

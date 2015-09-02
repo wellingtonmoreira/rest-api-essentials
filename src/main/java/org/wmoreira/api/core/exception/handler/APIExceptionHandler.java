@@ -29,7 +29,7 @@ public enum APIExceptionHandler {
         try {
             response.setStatus(aex.getStatus());
             response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
-            String error = JsonParser.INSTANCE.toJson(Error.of(aex.getStatus(), aex.getMessage()));
+            String error = JsonParser.INSTANCE.toJson(APIError.of(aex.getStatus(), aex.getMessage(), aex.getViolations()));
             response.getOutputStream().write(error.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
