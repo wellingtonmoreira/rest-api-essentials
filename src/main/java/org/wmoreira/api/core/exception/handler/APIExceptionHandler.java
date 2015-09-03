@@ -18,10 +18,15 @@ public enum APIExceptionHandler {
     public void handleResponse(HttpServletResponse response, Exception exc) {
         Throwable cause = exc.getCause();
 
-        if (exc instanceof APIException || (cause != null && cause instanceof APIException)) {
+        if (exc instanceof APIException) {
+            handleException(response, (APIException) exc);
+            return;
+        } else if (cause != null && cause instanceof APIException) {
             handleException(response, (APIException) cause);
+            return;
         } else {
             handleException(response, new InternalServerErrorException());
+            return;
         }
     }
 
