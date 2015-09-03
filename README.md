@@ -31,7 +31,8 @@ Basics for RESTFul APIs in a demystified way
   * 503 - ServiceUnavailableException
   * 504 - GatewayTimeoutException
   * 507 - InsufficientStorageException
-  
+*	**APIError** and **APIViolation**
+
 ##Usage
 ###SecurityChain
 A SecurityChain requires an implementation of *SecurityHelper*
