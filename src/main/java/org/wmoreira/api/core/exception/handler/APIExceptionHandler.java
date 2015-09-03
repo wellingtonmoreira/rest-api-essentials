@@ -28,9 +28,10 @@ public enum APIExceptionHandler {
     void handleException(HttpServletResponse response, APIException aex) {
         try {
             response.setStatus(aex.getStatus());
+            response.setCharacterEncoding("UTF-8");
             response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
             String error = JsonParser.INSTANCE.toJson(APIError.of(aex.getStatus(), aex.getMessage(), aex.getViolations()));
-            response.getOutputStream().write(error.getBytes());
+            response.getOutputStream().write(error.getBytes("UTF-8"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
